@@ -1,0 +1,13 @@
+body{
+        margin: 0px;
+        padding: 0px;
+		background-color:#C0C0C0;
+		font-family: "Trebuchet MS", Arial, sans-serif;
+		font-size: 1.1em;
+		font-style: italic;
+		text-align : center;
+    }
+div  {
+		margin: 8px;
+		padding: 8px;
+    }

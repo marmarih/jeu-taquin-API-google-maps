@@ -1,0 +1,72 @@
+﻿<!DOCTYPE HTML>
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="taquin.css"/>
+  </head>
+  
+  <body>
+	<h1>Projet Pratique de la programmation sous SIG</h1>
+	<h2>jeu de taquin</h2>
+	<!-- création d'un canvas qui va contenir le jeu -->
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+	
+	<!-- le javascript -->
+	<script>
+	//définition des variables
+	  var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var imageObj = new Image();
+	
+	//la fonction afficheImage 
+	  function afficheImage()
+	  {
+	  var longi_min = -10;   //la longitude minimale définit au hasard
+	  var longi_max = 70;	  //la longitude maximale définit au hasard
+	  var lat_min = -30;      //la latitude minimale définit au hasard
+	  var lat_max = 70;	      //la latitude maximale définit au hasard
+	  var longi = (longi_min + (longi_max-longi_min+1)*Math.random()); //variable qui défini la longitude au hasard entre longi_min et longi_max
+	  var lat = (lat_min + (lat_max-lat_min+1)*Math.random());	     //variable qui défini la latitude au hasard entre lat_min et lat_max
+	  imageObj.src = 'http://maps.googleapis.com/maps/api/staticmap?center='+longi+','+lat+'&zoom=4&size=400x400&sensor=false';
+      } 
+	
+      imageObj.onload = function() 
+	  {
+        // découpage de l'image
+        var sourceX = 0;			// la coordonnée X de l'image source
+        var sourceY = 0;			// la coordonnée Y de l'image source
+        var sourceWidth = 100;		// la largeur de l'image source
+        var sourceHeight= 100;      // la hauteur de l'image source
+        var destWidth = sourceWidth;      // la largeur de l'image de destination
+        var destHeight = sourceHeight;    // la hauteur de l'image de destination
+        var destX = 0;					  // la coordonnée X de l'image de destination
+        var destY = 0;					  // la coordonnée Y de l'image de destination
+		
+		// les quatres premiers pions: la 1ère ligne
+	    context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+		context.drawImage(imageObj, sourceWidth, sourceY, sourceWidth, sourceHeight, destWidth+1, destY, destWidth, destHeight);
+		context.drawImage(imageObj, 2*sourceWidth, sourceY, sourceWidth, sourceHeight,2+destWidth*2, destY, destWidth, destHeight);
+	    context.drawImage(imageObj, 3*sourceWidth, sourceY, sourceWidth, sourceHeight,3+destWidth*3, destY, destWidth, destHeight);
+		//la 2ème ligne
+		context.drawImage(imageObj, sourceX, sourceHeight, sourceWidth, sourceHeight, destX, 1+destHeight, destWidth, destHeight);
+		context.drawImage(imageObj, sourceWidth, sourceHeight, sourceWidth, sourceHeight, destWidth+1,1+destHeight, destWidth, destHeight);
+		context.drawImage(imageObj, 2*sourceWidth, sourceHeight, sourceWidth, sourceHeight,2+destWidth*2, 1+destHeight, destWidth, destHeight);
+	  	context.drawImage(imageObj, 3*sourceWidth, sourceHeight, sourceWidth, sourceHeight,3+destWidth*3, 1+destHeight, destWidth, destHeight);
+		//la 3ème ligne
+        context.drawImage(imageObj, sourceX, 2*sourceHeight, sourceWidth, sourceHeight, destX, 2+2*destHeight, destWidth, destHeight);
+		context.drawImage(imageObj, sourceWidth, 2*sourceHeight, sourceWidth, sourceHeight, destWidth+1,2+2*destHeight, destWidth, destHeight);
+		context.drawImage(imageObj, 2*sourceWidth, 2*sourceHeight, sourceWidth, sourceHeight,2+destWidth*2, 2+2*destHeight, destWidth, destHeight);	  
+		context.drawImage(imageObj, 3*sourceWidth, 2*sourceHeight, sourceWidth, sourceHeight,3+destWidth*3, 2+2*destHeight, destWidth, destHeight);	  
+		//la 4ème ligne
+		context.drawImage(imageObj, sourceX, 3*sourceHeight, sourceWidth, sourceHeight, destX, 3+3*destHeight, destWidth, destHeight);
+		context.drawImage(imageObj, sourceWidth, 3*sourceHeight, sourceWidth, sourceHeight, destWidth+1,3+3*destHeight, destWidth, destHeight);
+		context.drawImage(imageObj, 2*sourceWidth, 3*sourceHeight, sourceWidth, sourceHeight,2+destWidth*2, 3+3*destHeight, destWidth, destHeight);	  
+      }
+	</script>
+  <!--création du boutton qui affiche une carte à chaque clique-->
+  <form>
+   <input type ="button" value="afficher la carte" onClick="afficheImage();">
+  </form>
+  <div>Réalisé par: Maryam MARIH</div>
+  <div>Encadré par : E.Fritsch(ENSG/DCAIG)</div>
+  </body>
+</html>
